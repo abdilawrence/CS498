@@ -40,7 +40,17 @@ app.post('/register', (req,res) => {
 app.get('/list', (req, res) => {
         query = `SELECT * FROM Users;`;
         connection.query(query, (e,r,f) => {
-                res.json({'users': r});
+                //console.log(r);
+                //console.log(JSON.stringify(r));
+                r = JSON.stringify(r);
+                json = r;
+                const obj = JSON.parse(json);
+                const result = [];
+                for (let i = 0; i < Object.keys(obj).length; i++) {
+                        result.push(obj[i].username);
+                }
+                res.json({'users': result});
+                //res.json({'users':r});
         });
 });
 //clear page
